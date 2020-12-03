@@ -18,7 +18,6 @@
             <div class="tab">
                 <div class="section header" id="input_data"><span>1</span>Input Data</div>
                 <div class="inner-wrap">
-                    <!-- <label>Modality <input type="text" name="modality" /></label> -->
                     <label>Modality</label>
                     <select id="modality" name="modality">
                         <option value="meg">MEG</option>
@@ -33,8 +32,6 @@
                     <label>Raw File Name <input type="text" name="raw_fname" /></label>
                     <label>Empty Room File Name <input type="text" name="empty_room_fname" /></label>
                     <label>Dip File Name <input type="text" name="dip_fname" /></label>
-                    <!-- <label>Run Number <textarea name="run_num"></textarea></label> -->
-                    <!-- <label>Pre-Processing <input type="password" name="field5" /></label> -->
                 </div>
             </div>
 
@@ -73,41 +70,9 @@
                 <span class="step"></span>
                 <span class="step"></span>
             </div>
-            <!-- <div class="button-section">
-            <input type="submit" name="Create INI File" />
-        </div> -->
         </form>
     </div>
-
     <script src="main.js"></script>
-    <!-- <script>
-    function createFile(e) {
-        e.preventDefault();
-        var result = "";
-
-        const form = document.getElementById('my-form').childNodes;
-        // console.log(form);
-        for (var i = 0; i < form.length; i++) {
-            // if (form[i].class)
-            console.log(form[i]);
-        }
-        
-        // const forms = document.querySelectorAll('form');
-        // const form = forms[0];
-        // // Array.from(form.elements).forEach((input) => {
-        // //     if (input.type != "submit") {
-        // //         console.log(input);
-        // //         result += input.name + "=" + input.value + "\n";
-        // //         console.log(result);
-        // //     }
-        // // });
-        // console.log(forms);
-        // console.log(form);
-        // Array.from(form).forEach((div) => {
-        //     console.log(div);
-        // });
-    } -->
-    </script>
 </body>
 
 </html>

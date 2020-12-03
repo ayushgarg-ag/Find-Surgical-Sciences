@@ -12,9 +12,9 @@ function showTab(n) {
         document.getElementById("prevBtn").style.display = "inline";
     }
     if (n == (x.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "Submit";   
+        document.getElementById("nextBtn").innerHTML = "Submit";
     }
-     else {
+    else {
         document.getElementById("nextBtn").innerHTML = "Next";
     }
     //... and run a function that will display the correct step indicator:
@@ -107,6 +107,27 @@ function createFile() {
         }
     }
 
+    result = result.trim();
     document.getElementById('container').style.display = "none";
     document.getElementById('results').innerHTML = result;
+    download(result, "config.ini", "text/plain");
+}
+
+// Function to download data to a file
+function download(data, filename, type) {
+    var file = new Blob([data], { type: type });
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+        window.navigator.msSaveOrOpenBlob(file, filename);
+    else { // Others
+        var a = document.createElement("a"),
+            url = URL.createObjectURL(file);
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function () {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }, 0);
+    }
 }
