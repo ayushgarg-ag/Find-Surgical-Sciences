@@ -96,21 +96,48 @@ function fixStepIndicator(n) {
 function createFile() {
     var result = "";
     var all = document.getElementsByTagName("*");
+    var range = -1;
 
     for (var i = 0; i < all.length; i++) {
         var element = all[i];
-        if (element.tagName == 'DIV' && element.className.includes("header")) {
+        // Deals with range values
+        if (element.className.includes("range")) {
+            range++;
+        }
+        else if (range == 0) {
+            result += `${element.name}=[${element.value},`;
+            range++;
+        }
+        else if (range == 1) {
+            result += `${element.value}]\n`;
+            range -= 2;
+        }
+
+        // Deals with section names
+        else if (element.tagName == 'DIV' && element.className.includes("header")) {
             result += `\n[${element.id}]\n`;
         }
-        if (element.tagName == 'INPUT' || element.tagName == 'SELECT') {
-            result += `${element.name}=${element.value}\n`;
+
+        // Deals with input values
+        else if (element.tagName == 'INPUT' || element.tagName == 'SELECT') {
+            var val = element.value;
+            console.log(val);
+            // Deals with toggles
+            if (val == "on") {
+                val = 1;
+            }
+            else if (val == "off") {
+                val = 0;
+            }
+            result += `${element.name}=${val}\n`;
         }
+        
     }
 
     result = result.trim();
     document.getElementById('container').style.display = "none";
     document.getElementById('results').innerHTML = result;
-    download(result, "config.ini", "text/plain");
+    // download(result, "config.ini", "text/plain");
 }
 
 // Function to download data to a file
