@@ -100,6 +100,7 @@ function createFile() {
 
     for (var i = 0; i < all.length; i++) {
         var element = all[i];
+        console.log(element.checked);
         // Deals with range values
         if (element.className.includes("range")) {
             range++;
@@ -120,6 +121,12 @@ function createFile() {
 
         // Deals with input values
         else if (element.tagName == 'INPUT' || element.tagName == 'SELECT') {
+            if (element.type == "radio") {
+                if (! element.checked) {
+                    continue;
+                }
+            }
+
             var val = element.value;
             console.log(val);
             // Deals with toggles
