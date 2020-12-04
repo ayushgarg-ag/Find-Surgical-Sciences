@@ -52,6 +52,7 @@
 .form input[type="url"],
 .form input[type="password"],
 .form input[type="checkbox"],
+.form input[type="file"],
 .form textarea,
 .form select {
     display: block;
@@ -164,6 +165,7 @@ button:hover {
   display: inline-block;
   opacity: 0.5;
 }
+
 
 .step.active {
   opacity: 1;
@@ -392,4 +394,43 @@ input:checked + .slider:before {
 @keyframes fadeIn {
     0% { opacity:0; }
     100% { opacity:100%; }
+}
+
+
+
+
+/* ------------NAVIGATION TABS------------ */
+/* Style the tab */
+.tabby {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #6fb8ac;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 50px;
+}
+
+/* Style the buttons inside the tab */
+.tabby button {
+  background-color: inherit;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 21px;
+}
+
+/* Change background color of buttons on hover */
+.tabby button:hover {
+  background-color: #326b62;
+}
+
+/* Create an active/current tablink class */
+.tabby button.active {
+  background-color: #275d81;
+}
+
+.tablinks {
+	width: 100%;
 }

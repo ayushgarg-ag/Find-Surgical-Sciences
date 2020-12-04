@@ -15,11 +15,23 @@
         <h1>Configuring the INI file<span>Fill out the required parameters to create an INI file that will be used when
                 running the program</span></h1>
 
-        <!-- <div class="tabby">
-            <button class="tablinks" onclick="openCity(event, 'London')">Input Data</button>
-            <button class="tablinks" onclick="openCity(event, 'Paris')">Algorithm Parameters</button>
-            <button class="tablinks" onclick="openCity(event, 'Tokyo')">Algorithm Steps</button>
+        <div class="tabby">
+            <button class="tablinks steppy" onclick="openTab('input_data')">Input Data</button>
+            <hr class="solid">
+            <button class="tablinks steppy" onclick="openTab('alg_parameters')">Algorithm Parameters</button>
+            <hr class="solid">
+            <button class="tablinks steppy" onclick="openTab('alg_steps')">Algorithm Steps</button>
+        </div>
+
+        <!-- Circles which indicates the steps of the form: -->
+        <!-- <div style="text-align:center;margin-top:40px;">
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
         </div> -->
+
+        <label>Input previous INI file</label>
+        <input type="file" id="prevfile" name="prevfile" style="margin-bottom: 50px;">
 
         <form id="my-form">
             <div class="tab">
@@ -34,66 +46,66 @@
                         <option value="meg">MEG</option>
                         <option value="meeg">MEEG</option>
                         <option value="eeg">EEG</option>
-                    </select>
+                    </select>   
 
                     <label>run_num
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
                         <input type="text" name="run_num" value="1234" /></label>
-                    <label>remote_subject_dir 
+                    <label>remote_subject_dir
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
                         <input type="text" name="remote_subject_dir" value="filepath" /></label>
-                    <label>meg_fol 
+                    <label>meg_fol
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
                         <input type="text" name="meg_fol" value="filepath" /></label>
-                    <label>ictals_fol_name 
+                    <label>ictals_fol_name
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
                         <input type="text" name="ictals_fol_name" value="ictal" /></label>
-                    <label>interictals_fol_name 
+                    <label>interictals_fol_name
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
-                        <input type="text" name="interictals_fol_name"
-                            value="interictal" /></label>
-                    <label>bad_channels_meg 
+                        <input type="text" name="interictals_fol_name" value="interictal" /></label>
+                    <label>bad_channels_meg
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
                         <input type="text" name="bad_channels_meg" value="233,456" /></label>
-                    <label>bad_channels_eeg 
+                    <label>bad_channels_eeg
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
                         <input type="text" name="bad_channels_eeg" value="678" /></label>
-                    <label>raw_fname 
+                    <label>raw_fname
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
+                        <!-- <input type="file" id="raw_fname" name="raw_fname"> -->
                         <input type="text" name="raw_fname" value="filepath" /></label>
-                    <label>empty_room_fname 
-                        <div class="tooltip">
-                            <span class="tooltiptext">This is the inline help tip!</span>
-                        </div>
-                        <input type="text" name="empty_room_fname" value="filepath" /></label>
-                    <label>dip_fname 
-                        <div class="tooltip">
-                            <span class="tooltiptext">This is the inline help tip!</span>
-                        </div>
-                        <input type="text" name="dip_fname" value="filepath" /></label>
+                        <label>empty_room_fname
+                            <div class="tooltip">
+                                <span class="tooltiptext">This is the inline help tip!</span>
+                            </div>
+                            <input type="text" name="empty_room_fname" value="filepath" /></label>
+                        <label>dip_fname
+                            <div class="tooltip">
+                                <span class="tooltiptext">This is the inline help tip!</span>
+                            </div>
+                            <input type="text" name="dip_fname" value="filepath" /></label>
                 </div>
             </div>
 
             <div class="tab">
                 <div class="section header" id="alg_parameters"><span>2</span>Algorithm Parameters</div>
                 <div class="inner-wrap">
-                    <label>Inverse Method 
+                    <label>Inverse Method
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
@@ -101,7 +113,7 @@
                     <select id="inverse_method" name="inverse_method">
                         <option value="'MNE'">MNE</option>
                     </select>
-                    <label>downsample_r 
+                    <label>downsample_r
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
@@ -115,17 +127,17 @@
                             <input type="text" name="seizure_times" class="rangeinput high" value="1" />
                         </div>
                     </label>
-                    <label>windows_length 
+                    <label>windows_length
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
                         <input type="text" name="windows_length" value="0.1" /></label>
-                    <label>windows_shift 
+                    <label>windows_shift
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
                         <input type="text" name="windows_shift" value="0.05" /></label>
-                    <label>mean_baseline 
+                    <label>mean_baseline
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
@@ -147,32 +159,32 @@
                     </label>
 
 
-                    <label>atlas 
+                    <label>atlas
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
                         <input type="text" name="atlas" value="laus125" /></label>
-                    <label>min_cluster_size 
+                    <label>min_cluster_size
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
                         <input type="text" name="min_cluster_size" value="50" /></label>
-                    <label>min_order 
+                    <label>min_order
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
                         <input type="text" name="min_order" value="1" /></label>
-                    <label>max_order 
+                    <label>max_order
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
                         <input type="text" name="max_order" value="20" /></label>
-                    <label>con_windows_length 
+                    <label>con_windows_length
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
                         <input type="text" name="con_windows_length" value="0.1" /></label>
-                    <label>con_windows_shift 
+                    <label>con_windows_shift
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
@@ -195,7 +207,7 @@
                             <input type="text" name="con_mmvt_times" class="rangeinput high" value="0.5" />
                         </div>
                     </label>
-                    <label>onset_time 
+                    <label>onset_time
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
@@ -216,12 +228,12 @@
                         </div>
                     </label>
 
-                    <label>exclude 
+                    <label>exclude
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
                         <input type="text" name="exclude" value="['unknown']" /></label>
-                    <label>include 
+                    <label>include
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
@@ -241,7 +253,7 @@
                             </label>
                         </div>
                     </label>
-                    <label>n_jobs 
+                    <label>n_jobs
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
@@ -253,7 +265,7 @@
             <div class="tab">
                 <div class="section header" id="alg_steps"><span>3</span>Algorithm Steps</div>
                 <div class="inner-wrap">
-                    <label>pre_processing 
+                    <label>pre_processing
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
@@ -262,7 +274,7 @@
                         <input type="checkbox" name="pre_processing">
                         <span class="slider round"></span>
                     </label>
-                    <label>calc_stcs 
+                    <label>calc_stcs
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
@@ -271,7 +283,7 @@
                         <input type="checkbox" name="calc_stcs" checked>
                         <span class="slider round"></span>
                     </label>
-                    <label>calc_stc_zvals 
+                    <label>calc_stc_zvals
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
@@ -280,7 +292,7 @@
                         <input type="checkbox" name="calc_stc_zvals" checked>
                         <span class="slider round"></span>
                     </label>
-                    <label>find_functional_rois 
+                    <label>find_functional_rois
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
@@ -289,7 +301,7 @@
                         <input type="checkbox" name="find_functional_rois">
                         <span class="slider round"></span>
                     </label>
-                    <label>calc_rois_connectivity 
+                    <label>calc_rois_connectivity
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
@@ -298,7 +310,7 @@
                         <input type="checkbox" name="calc_rois_connectivity">
                         <span class="slider round"></span>
                     </label>
-                    <label>normalize_connectivity 
+                    <label>normalize_connectivity
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
@@ -307,7 +319,7 @@
                         <input type="checkbox" name="normalize_connectivity">
                         <span class="slider round"></span>
                     </label>
-                    <label>Save Sig Connections to MMVT 
+                    <label>Save Sig Connections to MMVT
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
@@ -326,12 +338,6 @@
                     <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
                     <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
                 </div>
-            </div>
-            <!-- Circles which indicates the steps of the form: -->
-            <div style="text-align:center;margin-top:40px;">
-                <span class="step"></span>
-                <span class="step"></span>
-                <span class="step"></span>
             </div>
         </form>
     </div>

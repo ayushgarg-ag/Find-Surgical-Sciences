@@ -1,6 +1,17 @@
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
 
+function openTab(tabname) {
+    var element = document.getElementById(tabname);
+    var child = element.childNodes[0];
+    var newtab = parseInt(child.innerHTML) - 1;
+
+    var x = document.getElementsByClassName("tab");
+    x[currentTab].style.display = "none";
+    currentTab = newtab;
+    showTab(currentTab);
+}
+
 function showTab(n) {
     // This function will display the specified tab of the form...
     var x = document.getElementsByClassName("tab");
@@ -18,7 +29,7 @@ function showTab(n) {
         document.getElementById("nextBtn").innerHTML = "Next";
     }
     //... and run a function that will display the correct step indicator:
-    fixStepIndicator(n)
+    // fixStepIndicator(n)
 }
 
 function nextPrev(n) {
@@ -27,7 +38,7 @@ function nextPrev(n) {
     // This function will figure out which tab to display
     var x = document.getElementsByClassName("tab");
     // Exit the function if any field in the current tab is invalid:
-    if (n == 1 && !validateForm()) return false;
+    // if (n == 1 && !validateForm()) return false;
     // Hide the current tab:
     x[currentTab].style.display = "none";
     // Increase or decrease the current tab by 1:
@@ -83,14 +94,73 @@ function validateForm() {
     return valid; // return the valid status
 }
 
-function fixStepIndicator(n) {
-    // This function removes the "active" class of all steps...
-    var i, x = document.getElementsByClassName("step");
-    for (i = 0; i < x.length; i++) {
-        x[i].className = x[i].className.replace(" active", "");
-    }
-    //... and adds the "active" class on the current step:
-    x[n].className += " active";
+// function fixStepIndicator(n) {
+//     // This function removes the "active" class of all steps...
+//     var i, x = document.getElementsByClassName("step");
+//     for (i = 0; i < x.length; i++) {
+//         x[i].className = x[i].className.replace(" active", "");
+//     }
+//     //... and adds the "active" class on the current step:
+//     x[n].className += " active";
+// }
+
+const fileSelector = document.getElementById('prevfile');
+fileSelector.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    readFile(file);
+});
+
+function readFile(file) {
+    const reader = new FileReader();
+    reader.addEventListener('load', (event) => {
+        const result = event.target.result;
+        var lines = result.split('\n');
+        for (var i = 0; i < lines.length; i++) {
+            var line = lines[i];
+
+            if (line.includes("=")) {
+                var key = line.substring(0, line.indexOf("="));
+                var val = line.substring(line.indexOf("=") + 1);
+
+                // Deals with range inputs
+                if (document.getElementsByName(key)[0]) {
+                    var elementClassName = document.getElementsByName(key)[0].className;
+                    if (elementClassName.includes("rangeinput")) {
+                        document.getElementsByName(key)[0].value = val.substring(val.indexOf("[") + 1, val.indexOf(","));
+                        document.getElementsByName(key)[1].value = val.substring(val.indexOf(",") + 1, val.indexOf("]"));
+                        continue;
+                    }
+                }
+
+                // Deals with toggles
+                if (document.getElementsByName(key)[0].type == 'checkbox') {
+                    if (val == '1') {
+                        document.getElementsByName(key)[0].checked = true;
+                    }
+                    else {
+                        document.getElementsByName(key)[0].checked = false;
+                    }
+                    continue;
+                }
+                
+                // Deals with true/false inputs
+                if (val == 'true' ) {
+                    document.getElementsByName(key)[0].checked = true;
+                    document.getElementsByName(key)[1].checked = false;
+                    continue;
+                }
+                else if (val == 'false') {
+                    document.getElementsByName(key)[0].checked = false;
+                    document.getElementsByName(key)[1].checked = true;
+                    continue;
+                }
+
+                document.getElementsByName(key)[0].value = val;
+            }
+            
+        }
+    });
+    reader.readAsText(file);
 }
 
 function createFile() {
@@ -100,7 +170,12 @@ function createFile() {
 
     for (var i = 0; i < all.length; i++) {
         var element = all[i];
-        console.log(element.checked);
+
+        // Deals with file upload
+        if (element.type == "file") {
+            continue;
+        }
+
         // Deals with range values
         if (element.className.includes("range")) {
             range++;
@@ -128,12 +203,11 @@ function createFile() {
             }
 
             var val = element.value;
-            console.log(val);
             // Deals with toggles
-            if (val == "on") {
+            if (element.checked) {
                 val = 1;
             }
-            else if (val == "off") {
+            else if (!element.checked) {
                 val = 0;
             }
             result += `${element.name}=${val}\n`;
@@ -144,7 +218,7 @@ function createFile() {
     result = result.trim();
     document.getElementById('container').style.display = "none";
     document.getElementById('results').innerHTML = result;
-    // download(result, "config.ini", "text/plain");
+    download(result, "config.ini", "text/plain");
 }
 
 // Function to download data to a file
