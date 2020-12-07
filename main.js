@@ -118,46 +118,49 @@ function readFile(file) {
         for (var i = 0; i < lines.length; i++) {
             var line = lines[i];
 
-            if (line.includes("=")) {
-                var key = line.substring(0, line.indexOf("="));
-                var val = line.substring(line.indexOf("=") + 1);
-
-                // Deals with range inputs
-                if (document.getElementsByName(key)[0]) {
-                    var elementClassName = document.getElementsByName(key)[0].className;
-                    if (elementClassName.includes("rangeinput")) {
-                        document.getElementsByName(key)[0].value = val.substring(val.indexOf("[") + 1, val.indexOf(","));
-                        document.getElementsByName(key)[1].value = val.substring(val.indexOf(",") + 1, val.indexOf("]"));
-                        continue;
-                    }
-                }
-
-                // Deals with toggles
-                if (document.getElementsByName(key)[0].type == 'checkbox') {
-                    if (val == '1') {
-                        document.getElementsByName(key)[0].checked = true;
-                    }
-                    else {
-                        document.getElementsByName(key)[0].checked = false;
-                    }
-                    continue;
-                }
-                
-                // Deals with true/false inputs
-                if (val == 'true' ) {
-                    document.getElementsByName(key)[0].checked = true;
-                    document.getElementsByName(key)[1].checked = false;
-                    continue;
-                }
-                else if (val == 'false') {
-                    document.getElementsByName(key)[0].checked = false;
-                    document.getElementsByName(key)[1].checked = true;
-                    continue;
-                }
-
-                document.getElementsByName(key)[0].value = val;
+            if (!line.includes("=")) {
+                continue;
             }
-            
+
+            var key = line.substring(0, line.indexOf("="));
+            var val = line.substring(line.indexOf("=") + 1);
+
+            // Deals with range inputs
+            if (document.getElementsByName(key)[0]) {
+                var elementClassName = document.getElementsByName(key)[0].className;
+                if (elementClassName.includes("rangeinput")) {
+                    document.getElementsByName(key)[0].value = val.substring(val.indexOf("[") + 1, val.indexOf(","));
+                    document.getElementsByName(key)[1].value = val.substring(val.indexOf(",") + 1, val.indexOf("]"));
+                    continue;
+                }
+            }
+
+            // Deals with toggles
+            if (document.getElementsByName(key)[0].type == 'checkbox') {
+                console.log(val);
+                if (val == '1' || val == 'True') {
+                    document.getElementsByName(key)[0].checked = true;
+                }
+                else {
+                    document.getElementsByName(key)[0].checked = false;
+                }
+                continue;
+            }
+
+            // Deals with true/false inputs
+            if (val == 'true') {
+                document.getElementsByName(key)[0].checked = true;
+                document.getElementsByName(key)[1].checked = false;
+                continue;
+            }
+            else if (val == 'false') {
+                document.getElementsByName(key)[0].checked = false;
+                document.getElementsByName(key)[1].checked = true;
+                continue;
+            }
+
+            document.getElementsByName(key)[0].value = val;
+
         }
     });
     reader.readAsText(file);
@@ -196,24 +199,35 @@ function createFile() {
 
         // Deals with input values
         else if (element.tagName == 'INPUT' || element.tagName == 'SELECT') {
+            var val = element.value;
+
             if (element.type == "radio") {
-                if (! element.checked) {
+                if (!element.checked) {
                     continue;
                 }
             }
 
-            var val = element.value;
-            // Deals with toggles
-            if (element.checked) {
-                val = 1;
-            }
-            else if (!element.checked) {
-                val = 0;
+            if (element.type == "checkbox") {
+                // Deals with toggles
+                var boolean = element.checked;
+                if (element.id.includes("boolean")) {
+                    boolean = "" + boolean;
+                    val = boolean.charAt(0).toUpperCase() + boolean.slice(1);
+                }
+                else if (boolean == true) {
+                    val = 1;
+                }
+                else if (boolean == false) {
+                    val = 0;
+                }
+
             }
             result += `${element.name}=${val}\n`;
         }
-        
+
     }
+
+    console.log(result);
 
     result = result.trim();
     document.getElementById('container').style.display = "none";

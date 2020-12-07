@@ -7,13 +7,19 @@
     <title>Configure INI File</title>
     <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="main.css">
+    <link rel="shortcut icon" type="image/jpg" href="https://user-images.githubusercontent.com/35853195/42889397-52f9c75e-8a78-11e8-9da8-86ccc3a30a80.png" />
 </head>
 
 <body>
     <div id="results"></div>
     <div class="form" id="container">
-        <h1>Configuring the INI file<span>Fill out the required parameters to create an INI file that will be used when
-                running the program</span></h1>
+        <h1>Configuring the INI file
+            <img src="https://user-images.githubusercontent.com/35853195/42889397-52f9c75e-8a78-11e8-9da8-86ccc3a30a80.png" id="companylogo">
+            <span>
+                Fill out the required parameters to create an INI file that will be used when
+                running the program
+            </span>
+        </h1>
 
         <div class="tabby">
             <button class="tablinks steppy" onclick="openTab('input_data')">Input Data</button>
@@ -30,7 +36,7 @@
             <span class="step"></span>
         </div> -->
 
-        <label>Input previous INI file</label>
+        <label>Input previous INI file (Optional)</label>
         <input type="file" id="prevfile" name="prevfile" style="margin-bottom: 50px;">
 
         <form id="my-form">
@@ -123,7 +129,7 @@
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
                         <div class="range">
-                            <input type="text" name="seizure_times" class="rangeinput low" value="-1" />
+                            <input type="text" name="seizure_times" class="rangeinput" value="-1" />
                             <input type="text" name="seizure_times" class="rangeinput high" value="1" />
                         </div>
                     </label>
@@ -146,7 +152,8 @@
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
-                        <div class="radiobuttons">
+                        
+                        <!-- <div class="radiobuttons">
                             <label class="radio">True
                                 <input type="radio" checked="checked" name="auto_calc_mean_baseline" value="true">
                                 <span class="checkmark"></span>
@@ -155,7 +162,11 @@
                                 <input type="radio" name="auto_calc_mean_baseline" value="false">
                                 <span class="checkmark"></span>
                             </label>
-                        </div>
+                        </div> -->
+                    </label>
+                    <label class="switch bool">
+                        <input type="checkbox" id="boolean1" name="auto_calc_mean_baseline">
+                        <span class="slider round"></span>
                     </label>
 
 
@@ -216,16 +227,10 @@
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
-                        <div class="radiobuttons">
-                            <label class="radio">True
-                                <input type="radio" checked="checked" name="use_functional_rois_atlas" value="true">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="radio">False
-                                <input type="radio" name="use_functional_rois_atlas" value="false">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox" id="boolean2" name="use_functional_rois_atlas">
+                        <span class="slider round"></span>
                     </label>
 
                     <label>exclude
@@ -242,23 +247,16 @@
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
-                        <div class="radiobuttons">
-                            <label class="radio">True
-                                <input type="radio" name="overwrite" value="true">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="radio">False
-                                <input type="radio" checked="checked" name="overwrite" value="false">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox" id="boolean3" name="overwrite">
+                        <span class="slider round"></span>
                     </label>
                     <label>n_jobs
                         <div class="tooltip">
                             <span class="tooltiptext">This is the inline help tip!</span>
                         </div>
                         <input type="text" name="n_jobs" value="4" /></label>
-
                 </div>
             </div>
 

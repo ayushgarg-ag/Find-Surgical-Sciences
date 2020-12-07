@@ -73,12 +73,13 @@
 
 .range {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-evenly;
 }
 
-.rangeinput {
-	margin-left: 6px;
-	margin-right: 6px;
+.range input[type="text"] {
+	/* margin-left: 6px;
+  margin-right: 6px; */
+  width: 30%;
 }
 
 .form select {
@@ -433,4 +434,9 @@ input:checked + .slider:before {
 
 .tablinks {
 	width: 100%;
+}
+
+#companylogo {
+  width: 110px;
+  float: right;
 }
