@@ -4,6 +4,10 @@ from api import get_patients_list, readPrevIniFile, saveFileToPatient
 app = Flask(__name__)
 patient = ''
 
+# @app.route('/')
+# def index():
+#     return render_template('home.html')
+
 @app.route('/')
 @app.route('/form', methods=['GET', 'POST'])
 def form():
@@ -19,7 +23,6 @@ def readFile():
     global patient
     if request.method == 'POST':
         patient = request.data.decode()
-        print(patient)
         return readPrevIniFile(patient)
 
 if __name__ == "__main__":

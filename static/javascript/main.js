@@ -58,8 +58,6 @@ function showTab(n) {
     else {
         document.getElementById("nextBtn").innerHTML = "Next";
     }
-    //... and run a function that will display the correct step indicator:
-    // fixStepIndicator(n)
 }
 
 function nextPrev(n) {
@@ -118,21 +116,11 @@ function validateForm() {
         }
     }
     // If the valid status is true, mark the step as finished and valid:
-    if (valid) {
-        document.getElementsByClassName("step")[currentTab].className += " finish";
-    }
+    // if (valid) {
+    //     document.getElementsByClassName("step")[currentTab].className += " finish";
+    // }
     return valid; // return the valid status
 }
-
-// function fixStepIndicator(n) {
-//     // This function removes the "active" class of all steps...
-//     var i, x = document.getElementsByClassName("step");
-//     for (i = 0; i < x.length; i++) {
-//         x[i].className = x[i].className.replace(" active", "");
-//     }
-//     //... and adds the "active" class on the current step:
-//     x[n].className += " active";
-// }
 
 function readIniFile(text) {
     const result = text;
