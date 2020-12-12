@@ -1,6 +1,36 @@
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
 
+const patientSelector = document.getElementById('patientSelect');
+patientSelector.addEventListener('change', (event) => {
+
+    async function readApiFile() {
+        console.log(patientSelector.value);
+        const response = await fetch('/readFile', {
+            method: 'POST',
+            body: patientSelector.value,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+        // const result = await response.json();
+        const result = await response.text();
+        console.log(result);
+        if (result != "") {
+            readIniFile(result);
+        }
+    // const file = event.target.files[0];
+    // readFile(file);
+    }    
+    readApiFile();
+});
+
+const fileSelector = document.getElementById('prevfile');
+fileSelector.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    readFile(file);
+});
+
 function openTab(tabname) {
     var element = document.getElementById(tabname);
     var child = element.childNodes[0];
@@ -104,64 +134,65 @@ function validateForm() {
 //     x[n].className += " active";
 // }
 
-const fileSelector = document.getElementById('prevfile');
-fileSelector.addEventListener('change', (event) => {
-    const file = event.target.files[0];
-    readFile(file);
-});
+function readIniFile(text) {
+    const result = text;
+    // console.log(result);
+    var lines = result.split('\n');
+    for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        console.log(line);
+
+        if (!line.includes("=")) {
+            continue;
+        }
+
+        var key = line.substring(0, line.indexOf("="));
+        var val = line.substring(line.indexOf("=") + 1);
+
+        // Deals with range inputs
+        if (document.getElementsByName(key)[0]) {
+            var elementClassName = document.getElementsByName(key)[0].className;
+            if (elementClassName.includes("rangeinput")) {
+                document.getElementsByName(key)[0].value = val.substring(val.indexOf("[") + 1, val.indexOf(","));
+                document.getElementsByName(key)[1].value = val.substring(val.indexOf(",") + 1, val.indexOf("]"));
+                continue;
+            }
+        }
+
+        // Deals with toggles
+        if (document.getElementsByName(key)[0].type == 'checkbox') {
+            console.log(val);
+            if (val == '1' || val == 'True') {
+                document.getElementsByName(key)[0].checked = true;
+            }
+            else {
+                document.getElementsByName(key)[0].checked = false;
+            }
+            continue;
+        }
+
+        // Deals with true/false inputs
+        if (val == 'true') {
+            document.getElementsByName(key)[0].checked = true;
+            document.getElementsByName(key)[1].checked = false;
+            continue;
+        }
+        else if (val == 'false') {
+            document.getElementsByName(key)[0].checked = false;
+            document.getElementsByName(key)[1].checked = true;
+            continue;
+        }
+
+        document.getElementsByName(key)[0].value = val;
+
+    }
+}
 
 function readFile(file) {
     const reader = new FileReader();
     reader.addEventListener('load', (event) => {
-        const result = event.target.result;
-        var lines = result.split('\n');
-        for (var i = 0; i < lines.length; i++) {
-            var line = lines[i];
-
-            if (!line.includes("=")) {
-                continue;
-            }
-
-            var key = line.substring(0, line.indexOf("="));
-            var val = line.substring(line.indexOf("=") + 1);
-
-            // Deals with range inputs
-            if (document.getElementsByName(key)[0]) {
-                var elementClassName = document.getElementsByName(key)[0].className;
-                if (elementClassName.includes("rangeinput")) {
-                    document.getElementsByName(key)[0].value = val.substring(val.indexOf("[") + 1, val.indexOf(","));
-                    document.getElementsByName(key)[1].value = val.substring(val.indexOf(",") + 1, val.indexOf("]"));
-                    continue;
-                }
-            }
-
-            // Deals with toggles
-            if (document.getElementsByName(key)[0].type == 'checkbox') {
-                console.log(val);
-                if (val == '1' || val == 'True') {
-                    document.getElementsByName(key)[0].checked = true;
-                }
-                else {
-                    document.getElementsByName(key)[0].checked = false;
-                }
-                continue;
-            }
-
-            // Deals with true/false inputs
-            if (val == 'true') {
-                document.getElementsByName(key)[0].checked = true;
-                document.getElementsByName(key)[1].checked = false;
-                continue;
-            }
-            else if (val == 'false') {
-                document.getElementsByName(key)[0].checked = false;
-                document.getElementsByName(key)[1].checked = true;
-                continue;
-            }
-
-            document.getElementsByName(key)[0].value = val;
-
-        }
+        console.log(event.target.result);
+        readIniFile(event.target.result);
     });
     reader.readAsText(file);
 }
@@ -175,7 +206,9 @@ function createFile() {
         var element = all[i];
 
         // Deals with file upload
-        if (element.type == "file") {
+        console.log(element)
+        if (element.type == "file" || element.id == "patientSelect") {
+            console.log("JENAWJEUFHAIUHFAI")
             continue;
         }
 
@@ -227,7 +260,7 @@ function createFile() {
 
     }
 
-    console.log(result);
+    // console.log(result);
 
     result = result.trim();
     document.getElementById('container').style.display = "none";
@@ -241,8 +274,6 @@ function createFile() {
         },
     });
     // const result = await response.json();
-    console.log(result);
-    console.log("IS TAHTUDHFAIUHDFIAU NEW")
 
     // fetch('/', {
     //     method: "POST",
